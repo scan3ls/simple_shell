@@ -19,7 +19,6 @@ int main(void)
 
 		if (line != NULL && read > 1)
 		{
-			printf("%s - %d\n", line, (int)read);
 			/* seperate line into command and arguments */
 			argv = seperate_line(line);
 			/* find command assume base path of /bin/*/
@@ -29,7 +28,6 @@ int main(void)
 			/* reset pathname */
 			free(path);
 			free(argv);
-
 		}
 		/* Back to start */
 		printf("$ ");

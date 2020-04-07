@@ -1,5 +1,6 @@
 #include "header.h"
 
+extern char **environ;
 /**
  * execute_command - execute a command
  *@pathname: path of command to execute
@@ -8,8 +9,26 @@
 
 void execute_command(char *pathname, char **arg_array)
 {
-	int status;
+	int status, i;
 	char *error[] = {"/bin/echo" , "-n", "Error\n", NULL};
+	char *env = *environ;
+
+	/* check for exit command */
+	if (strcmp(arg_array[0], "exit") == 0)
+	{
+		exit(0);
+	}
+
+	/* check for env command */
+	if (strcmp(arg_array[0], "env") == 0)
+	{
+		for (i = 1; env != NULL; i++)
+		{
+			printf("%s\n", env);
+			env = *(environ + i);
+		}
+		return;
+	}
 
 	if (fork() == 0)
 	{
