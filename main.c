@@ -38,9 +38,9 @@ int main(void)
 			execute_command(path, argv, line);
 		}
 		/* reset pathname */
-		if (path != NULL)
+		if (path != NULL && rd > 1)
 			free(path);
-		if (argv != NULL)
+		if (argv != NULL && rd > 1)
 			free(argv);
 		/* Back to start */
 		printf("$ ");
