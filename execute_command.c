@@ -15,7 +15,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 	char *path = malloc(1);
 
 	/*checks for and executes built-ins */
-	builtIns(arg_array, line);
+	builtIns(arg_array, line, tokens);
 
 	if (fork() == 0)
 	{
@@ -51,9 +51,10 @@ void execute_command(char **arg_array, char *line, char **tokens)
  * builtIns - runs builtIns if command is detected
  *@arg_array: command line split into an array (slit at " ")
  *@line: pointer to command line
+ *@tokens: array of directories in PATH
  */
 
-void builtIns(char **arg_array, char *line)
+void builtIns(char **arg_array, char *line, char **tokens)
 {
 	int i;
 	char *env = *environ; /* grabs local enviorn with external variable */
@@ -65,6 +66,7 @@ void builtIns(char **arg_array, char *line)
 	{
 		free(arg_array);
 		free(line);
+		free(tokens);
 		exit(0);
 	}
 
@@ -101,14 +103,14 @@ void newPath(char *path, char **tok, int pathL, int cmdL, int pathC, char *cmd)
 {
 	int newPathTok, newPathCmd; /* index counters to create new path string */
 
-	for (newPathTok = 0; newPathTok < pathLen; newPathTok++)
-		path[newPathTok] = tok[pathCount][newPathTok];
+	for (newPathTok = 0; newPathTok < pathL; newPathTok++)
+		path[newPathTok] = tok[pathC][newPathTok];
 
 	path[newPathTok] = '/';
 
 	newPathTok++;
 
-	for (newPathCmd = 0; newPathCmd <= cmdLen; newPathCmd++)
+	for (newPathCmd = 0; newPathCmd <= cmdL; newPathCmd++)
 		path[newPathTok + newPathCmd] = cmd[newPathCmd];
 }
 
