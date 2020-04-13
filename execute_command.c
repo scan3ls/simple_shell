@@ -88,20 +88,21 @@ void builtIns(char **arg_array, char *line)
 /**
  * newPath - create a new path for a command using PATH
  *@path: pointer to the new path
- *@tokens: array of directories from PATH
- *@pathLen: length of current directory from PATH in tokens
- *@cmdLen: length of the command line
- *@pathCount: count of directories in PATH
+ *@tok: array of directories from PATH
+ *@pathL: length of current directory from PATH in tokens
+ *@cmdL: length of the command line
+ *@pathC: count of directories in PATH
+ *@cmd: command string
  *
  * Return: path
  */
 
-void newPath(char *path, char **tokens, int pathLen, int cmdLen, int pathCount, char *cmd)
+void newPath(char *path, char **tok, int pathL, int cmdL, int pathC, char *cmd)
 {
 	int newPathTok, newPathCmd; /* index counters to create new path string */
 
 	for (newPathTok = 0; newPathTok < pathLen; newPathTok++)
-		path[newPathTok] = tokens[pathCount][newPathTok];
+		path[newPathTok] = tok[pathCount][newPathTok];
 
 	path[newPathTok] = '/';
 
