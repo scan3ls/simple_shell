@@ -4,7 +4,7 @@ char **pathTok(void)
 {
   char **tokens;
   char *tok;
-  int i, j;
+  int i;
   char *path;
   char *env = *environ;
 

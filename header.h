@@ -16,5 +16,9 @@ char **seperate_line(char *line);
 char *find_command_path(char *command);
 void execute_command(char **arg_array, char *line, char **tokens);
 char **pathTok(void);
+void builtIns(char **arg_array,char *line);
+void newPath(char *path, char **tokens, int pathLen, int cmdLen, int pathCount, char *cmd);
+int getLength(char *str);
+int _strcmp(char *s1, char *s2);
 
 #endif
