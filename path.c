@@ -1,25 +1,25 @@
 #include "header.h"
+
 char **pathTok(void)
 {
   char **tokens;
   char *tok;
-  int i, j;
+  int i;
   char *path;
   char *env = *environ;
 
 
-      for (i = 1; env != NULL; i++)
-	{
-	  if (env[0] = 'P')
-	    break;
+  for (i = 1; env != NULL; i++)
+  {
+	  if (env[0] == 'P' && env[1] == 'A')
+		  break;
 	  env = *(environ + i);
-	}
-  path = env;
+  }
+  path = env + 5;
   i = 0;
-  j = 0;
-  while (env[j])
-    j++;
+
   tokens = malloc(1000);
+
   tok = strtok(path, ":");
   while (tok != NULL)
     {

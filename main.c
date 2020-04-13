@@ -12,7 +12,7 @@ int main(void)
 	size_t len = 0;
 	ssize_t rd;
 	char **argv = NULL;
-	char *path = NULL;
+	char **tokens = pathTok();
 
 	/* wait for input */
 	printf("$ ");
@@ -24,7 +24,10 @@ int main(void)
 		rd = getline(&line, &len, stdin);
 		/* handles Ctrl+D presses */
 		if (rd == -1)
-			continue;
+		{
+			write(1, "\n", 1);
+			break;
+		}
 		/* remove nl */
 		remove_new_line(line);
 		/* verify a command is present */
@@ -32,20 +35,16 @@ int main(void)
 		{
 			/* seperate line into command and arguments */
 			argv = seperate_line(line);
-			/* find command assume base path of /bin/*/
-			path = find_command_path(argv[0]);
 			/* execute command */
-			execute_command(path, argv, line);
+			execute_command(argv, line, tokens);
 		}
 		/* reset pathname */
-		if (path != NULL && rd > 1)
-			free(path);
 		if (argv != NULL && rd > 1)
 			free(argv);
 		/* Back to start */
 		printf("$ ");
 	}
 	free(line);
-
+	free(tokens);
 	return (0);
 }
