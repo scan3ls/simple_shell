@@ -1,0 +1,15 @@
+.TH man 1 "12 April 2020" "Version 1.0" "simple shell man page"
+
+.SH NAME
+
+Holberton Simple Shell (hsh)
+
+.SH SYNOPSIS
+
+.B ./hsh
+.I [command][arguments ...]
+
+.SH DESCRIPTION
+simple_shell is a custom built shell that resembles the Ken Thompson shell.
+
+.SH OVERVIEW
