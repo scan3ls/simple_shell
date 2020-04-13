@@ -10,13 +10,9 @@
 char *find_command_path(char *command)
 {
 	int c;
-	char *bin = "/bin/";
-	char *bash = "/bin/bash";
 	char *found;
 	char *pathname;
-
-	(void)bash;
-
+	char **tokens = pathTok();
 	/* If command is already a path */
 	/* return command */
 
@@ -28,8 +24,8 @@ char *find_command_path(char *command)
 	}
 
 	/*try to find command in bin or bash*/
-	found = bin;
-
+/*	found = bin;
+ */
 	/* Set pathname to the command path */
 	for (c = 0; found[c] != '\0'; c++)
 	{

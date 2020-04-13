@@ -13,7 +13,7 @@ int main(void)
 	ssize_t rd;
 	char **argv = NULL;
 	char *path = NULL;
-
+	char **tokens = pathTok();
 	/* wait for input */
 	printf("$ ");
 	/* Ignore signals */
@@ -33,19 +33,17 @@ int main(void)
 			/* seperate line into command and arguments */
 			argv = seperate_line(line);
 			/* find command assume base path of /bin/*/
-			path = find_command_path(argv[0]);
+			/* path = find_command_path(argv[0]); */
 			/* execute command */
-			execute_command(path, argv, line);
+			execute_command(argv, line, tokens);
 		}
 		/* reset pathname */
-		if (path != NULL && rd > 1)
-			free(path);
 		if (argv != NULL && rd > 1)
 			free(argv);
 		/* Back to start */
 		printf("$ ");
 	}
 	free(line);
-
+	free(tokens);
 	return (0);
 }

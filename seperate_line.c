@@ -29,6 +29,7 @@ char **seperate_line(char *line)
 		s++;
 		token = strtok(NULL, " ");
 	}
+	av[s] = NULL;
 
 	return (av);
 }
