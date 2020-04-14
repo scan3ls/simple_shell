@@ -51,6 +51,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
  * builtIns - runs builtIns if command is detected
  *@arg_array: command line split into an array (slit at " ")
  *@line: pointer to command line
+ *@path: Current tokenized path to free
  *@tokens: array of directories in PATH
  */
 
@@ -77,7 +78,7 @@ void builtIns(char **arg_array, char *line, char **tokens, char *path)
 
 		for (i = 1; env != NULL; i++)
 		{
-			while ((c[0] = env[letters]) != '\0')
+			for (letters = 0; (c[0] = env[letters]) != '\0'; letters++)
 			{
 				write(1, c, 1);
 			}

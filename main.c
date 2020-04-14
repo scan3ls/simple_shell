@@ -15,7 +15,7 @@ int main(void)
 	char **tokens = pathTok();
 
 	/* wait for input */
-	printf("$ ");
+	write(1, "$ ", 2);
 	/* Ignore signals */
 	signal(SIGINT, SIG_IGN);
 
@@ -42,7 +42,7 @@ int main(void)
 		if (argv != NULL && rd > 1)
 			free(argv);
 		/* Back to start */
-		printf("$ ");
+		write(1, "$ ", 2);
 	}
 	free(line);
 	free(tokens);
