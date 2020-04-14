@@ -15,7 +15,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 	char *path = malloc(1);
 
 	/*checks for and executes built-ins */
-	builtIns(arg_array, line, tokens);
+	builtIns(arg_array, line, tokens, path);
 
 	if (fork() == 0)
 	{
@@ -31,7 +31,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 				/* malloc enough size for new path string */
 				cmdLen = getLength(arg_array[0]);
 				pathLen = getLength(tokens[pathCount]);
-				path = realloc(path, sizeof(char) * (cmdLen + pathLen + 1));
+				path = realloc(path, sizeof(char) * (cmdLen + pathLen + 0));
 
 				/* combine path from token to command to get new path */
 				/* path = token + "/" + cmd */
@@ -39,12 +39,12 @@ void execute_command(char **arg_array, char *line, char **tokens)
 				execve(path, arg_array, NULL);
 			}
 			/* print "error" using echo to close pid */
-			free(path);
 			execve(error[0], error, NULL);
 		}
 	}
 	else
 		wait(&status);
+	free(path);
 }
 
 /**
@@ -54,7 +54,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
  *@tokens: array of directories in PATH
  */
 
-void builtIns(char **arg_array, char *line, char **tokens)
+void builtIns(char **arg_array, char *line, char **tokens, char *path)
 {
 	int i;
 	char *env = *environ; /* grabs local enviorn with external variable */
@@ -64,6 +64,7 @@ void builtIns(char **arg_array, char *line, char **tokens)
 	/* check for exit command */
 	if (_strcmp(arg_array[0], "exit") == 0)
 	{
+		free(path);
 		free(arg_array);
 		free(line);
 		free(tokens);
