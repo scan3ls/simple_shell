@@ -12,7 +12,7 @@ char **pathTok(void)
 	char *path;
 	char *env = *environ;
 
-	for (i = 1; env != NULL; i++)
+	for (i = 0; env != NULL; i++)
 	{
 		if (env[0] == 'P' && env[1] == 'A')
 			break;
