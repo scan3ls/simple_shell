@@ -13,6 +13,7 @@ int main(void)
 	ssize_t rd;
 	char **argv = NULL;
 	char **tokens = pathTok();
+	int i;
 
 	/* Ignore signals */
 	signal(SIGINT, SIG_IGN);
@@ -30,7 +31,10 @@ int main(void)
 			break;
 		}
 		/* remove nl */
-		remove_new_line(line);
+		i = remove_new_line(line);
+		if (!i)
+			continue;
+
 		/* verify a command is present */
 		if (line != NULL && rd > 1)
 		{

@@ -12,7 +12,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 	int status;
 	int pathCount, cmdLen, pathLen;
 	char *error[] = {"/bin/echo", "-n", "Error\n", NULL};
-	char *path;
+	char *path = NULL;
 
 	/*checks for and executes built-ins */
 	builtIns(arg_array, line, tokens);
