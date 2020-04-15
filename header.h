@@ -20,5 +20,6 @@ void builtIns(char **arg_array, char *line, char **tokens, char *path);
 void newPath(char *pth, char **tok, int pathL, int cmdL, int pathC, char *cmd);
 int getLength(char *str);
 int _strcmp(char *s1, char *s2);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif
