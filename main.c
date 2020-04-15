@@ -14,18 +14,18 @@ int main(void)
 	char **argv = NULL;
 	char **tokens = pathTok();
 
-	/* wait for input */
-	write(1, "$ ", 2);
 	/* Ignore signals */
 	signal(SIGINT, SIG_IGN);
 
 	while (1)
 	{
-		rd = getline(&line, &len, stdin);
+		if (isatty(STDIN_FILENO))
+			write(1, "$ ", 2);
+	       	rd = getline(&line, &len, stdin);
 		/* handles Ctrl+D presses */
 		if (rd == -1)
 		{
-			write(1, "\n", 1);
+			/*write(1, "\n", 1);*/
 			break;
 		}
 		/* remove nl */
@@ -42,7 +42,6 @@ int main(void)
 		if (argv != NULL && rd > 1)
 			free(argv);
 		/* Back to start */
-		write(1, "$ ", 2);
 	}
 	free(line);
 	free(tokens);
