@@ -10,26 +10,24 @@
 
 char **seperate_line(char *line)
 {
-	char **av;
+	char **av = malloc(sizeof(char *) * 15);
 	char *token;
 	int s;
 
-	av = malloc(sizeof(char *)  * 1);
-	if (av == NULL)
+	if (line == NULL)
 		return (NULL);
+	while (line[0] == ' ')
+		line++;
+
 	token = strtok(line, " ");
 	s = 0;
 	while (token != NULL)
 	{
-		if (s > 1)
-			av = realloc(av, s);
-		if (av == NULL)
-			return (NULL);
 		av[s] = token;
 		s++;
 		token = strtok(NULL, " ");
 	}
-	av[s] = NULL;
+	/* av[s] = NULL; */
 
 	return (av);
 }

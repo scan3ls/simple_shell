@@ -12,10 +12,10 @@ void execute_command(char **arg_array, char *line, char **tokens)
 	int status;
 	int pathCount, cmdLen, pathLen;
 	char *error[] = {"/bin/echo", "-n", "Error\n", NULL};
-	char *path = malloc(1);
+	char *path;
 
 	/*checks for and executes built-ins */
-	builtIns(arg_array, line, tokens, path);
+	builtIns(arg_array, line, tokens);
 
 	if (fork() == 0)
 	{
@@ -31,31 +31,31 @@ void execute_command(char **arg_array, char *line, char **tokens)
 				/* malloc enough size for new path string */
 				cmdLen = getLength(arg_array[0]);
 				pathLen = getLength(tokens[pathCount]);
-				path = realloc(path, sizeof(char) * (cmdLen + pathLen + 0));
-
+				path = malloc(sizeof(char) * (cmdLen + pathLen + 0));
 				/* combine path from token to command to get new path */
 				/* path = token + "/" + cmd */
 				newPath(path, tokens, pathLen, cmdLen, pathCount, arg_array[0]);
 				execve(path, arg_array, NULL);
+				free(path);
 			}
+			free(arg_array);
 			/* print "error" using echo to close pid */
 			execve(error[0], error, NULL);
 		}
 	}
 	else
 		wait(&status);
-	free(path);
+	/* free(path); */
 }
 
 /**
  * builtIns - runs builtIns if command is detected
  *@arg_array: command line split into an array (slit at " ")
  *@line: pointer to command line
- *@path: Current tokenized path to free
  *@tokens: array of directories in PATH
  */
 
-void builtIns(char **arg_array, char *line, char **tokens, char *path)
+void builtIns(char **arg_array, char *line, char **tokens)
 {
 	int i;
 	char *env = *environ; /* grabs local enviorn with external variable */
@@ -65,7 +65,6 @@ void builtIns(char **arg_array, char *line, char **tokens, char *path)
 	/* check for exit command */
 	if (_strcmp(arg_array[0], "exit") == 0)
 	{
-		free(path);
 		free(arg_array);
 		free(line);
 		free(tokens);
