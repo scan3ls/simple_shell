@@ -17,7 +17,6 @@ int main(void)
 
 	/* Ignore signals */
 	signal(SIGINT, SIG_IGN);
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -30,11 +29,10 @@ int main(void)
 				write(1, "\n", 1);
 			break;
 		}
-		/* remove nl */
+		/* prep line */
 		i = remove_new_line(line);
 		if (!i)
 			continue;
-
 		/* verify a command is present */
 		if (line != NULL && rd > 1)
 		{
@@ -46,7 +44,6 @@ int main(void)
 		/* reset pathname */
 		if (argv != NULL && rd > 1)
 			free(argv);
-		/* Back to start */
 	}
 	free(line);
 	free(tokens);
