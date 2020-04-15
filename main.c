@@ -14,18 +14,17 @@ int main(void)
 	char **argv = NULL;
 	char **tokens = pathTok();
 
-	/* wait for input */
-	printf("$ ");
 	/* Ignore signals */
 	signal(SIGINT, SIG_IGN);
 
 	while (1)
 	{
+		if (isatty(STDIN_FILENO))
+			write(1, "$ ", 2);
 		rd = getline(&line, &len, stdin);
 		/* handles Ctrl+D presses */
 		if (rd == -1)
 		{
-			write(1, "\n", 1);
 			break;
 		}
 		/* remove nl */
@@ -41,8 +40,6 @@ int main(void)
 		/* reset pathname */
 		if (argv != NULL && rd > 1)
 			free(argv);
-		/* Back to start */
-		printf("$ ");
 	}
 	free(line);
 	free(tokens);
