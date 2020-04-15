@@ -11,13 +11,11 @@
 char **seperate_line(char *line)
 {
 	char **av = malloc(sizeof(char *) * 15);
-	char *token;
+	char *token = NULL;
 	int s;
 
 	if (line == NULL)
 		return (NULL);
-	while (line[0] == ' ')
-		line++;
 
 	token = strtok(line, " ");
 	s = 0;
