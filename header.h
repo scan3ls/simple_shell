@@ -11,7 +11,7 @@
 
 extern char **environ;
 
-void remove_new_line(char *str);
+int remove_new_line(char *str);
 char **seperate_line(char *line);
 char *find_command_path(char *command);
 void execute_command(char **arg_array, char *line, char **tokens);

@@ -11,7 +11,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 {
 	int status = 0;
 	int pathCount, cmdLen, pathLen;
-	char *path;
+	char *path = NULL;
 
 	/*checks for and executes built-ins */
 	builtIns(arg_array, line, tokens, status);
