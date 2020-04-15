@@ -21,7 +21,7 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO))
 			write(1, "$ ", 2);
-	       	rd = getline(&line, &len, stdin);
+		rd = getline(&line, &len, stdin);
 		/* handles Ctrl+D presses */
 		if (rd == -1)
 		{
