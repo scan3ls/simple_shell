@@ -37,7 +37,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 				execve(path, arg_array, NULL);
 				free(path);
 			}
-			status = 127
+			status = 127;
 			free(arg_array);
 			/* print "error" using echo to close pid */
 			perror(arg_array[0]);
@@ -53,6 +53,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
  * builtIns - runs builtIns if command is detected
  *@arg_array: command line split into an array (slit at " ")
  *@line: pointer to command line
+ *@status: exit status
  *@tokens: array of directories in PATH
  */
 
