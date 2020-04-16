@@ -14,7 +14,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
 	char *path = NULL;
 
 	/*checks for and executes built-ins */
-	builtIns(arg_array, line, tokens);
+	builtIns(arg_array, line, tokens, status);
 
 	if (fork() == 0)
 	{
@@ -37,11 +37,11 @@ void execute_command(char **arg_array, char *line, char **tokens)
 				execve(path, arg_array, NULL);
 				free(path);
 			}
-
+			status = 127
 			free(arg_array);
 			/* print "error" using echo to close pid */
 			perror(arg_array[0]);
-			_exit(0);
+			_exit(status);
 		}
 	}
 	else
@@ -56,7 +56,7 @@ void execute_command(char **arg_array, char *line, char **tokens)
  *@tokens: array of directories in PATH
  */
 
-void builtIns(char **arg_array, char *line, char **tokens)
+void builtIns(char **arg_array, char *line, char **tokens, int status)
 {
 	int i;
 	char *env = *environ; /* grabs local enviorn with external variable */
@@ -69,7 +69,7 @@ void builtIns(char **arg_array, char *line, char **tokens)
 		free(arg_array);
 		free(line);
 		free(tokens);
-		exit(0);
+		exit(status);
 	}
 
 	/* check for env command */
